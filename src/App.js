@@ -19,7 +19,8 @@ class App extends Component {
         {name: newName, age: '28'},
         {name: 'Georg', age: '34'},
         {name: 'Stephanie', age: '17'}
-      ]
+      ],
+      showPersons: false
     });
   }
 
@@ -34,6 +35,10 @@ class App extends Component {
     });
   }
 
+  togglePersonsHandler = () => {
+      const doesShow = this.state.showPersons;
+      this.setState({showPersons: !doesShow })
+  }
 
   render() {
     //Inline Style - at the button element - doesn't give the full power of CSS. Example: Hover State
@@ -50,24 +55,31 @@ class App extends Component {
         <h1>Hi, I'm a React App!</h1>
         <button 
         style={style}
-        onClick={() => this.switchNameHandler('Volker')}>Switch Name</button>
-        <Person 
-        name={this.state.persons[0].name} 
-        age={this.state.persons[0].age}
-        />
-        <Person 
-        name={this.state.persons[1].name} 
-        age={this.state.persons[1].age}
-        changed={this.nameChangedHandler}
-        />
-        <Person 
-        name={this.state.persons[2].name} 
-        age={this.state.persons[2].age}
-        click = {this.switchNameHandler.bind(this,'Harry')}
-        >
-          My Hobby is Racing
-        </Person>
+        onClick={this.togglePersonsHandler}>Toggle Persons</button>
+         {
+         this.state.showPersons ? 
+          <div>
+            <Person 
+            name={this.state.persons[0].name} 
+            age={this.state.persons[0].age}
+            />
+            <Person 
+            name={this.state.persons[1].name} 
+            age={this.state.persons[1].age}
+            changed={this.nameChangedHandler}
+            />
+            <Person 
+            name={this.state.persons[2].name} 
+            age={this.state.persons[2].age}
+            click = {this.switchNameHandler.bind(this,'Harry')}
+            >
+              My Hobby is Racing
+            </Person>
+          </div>
+         : null
+        }
       </div>
+      
     );
   }
 }
